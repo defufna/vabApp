@@ -1,0 +1,1 @@
+# vabApp - VeloxDB + ASP.NET + Blazor WebAssembly example

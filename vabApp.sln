@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vabApp.Server", "vabApp\Server\vabApp.Server.csproj", "{A76F69CC-7C1E-4511-B8D2-FAD2306E12BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "vabApp.WebAPI", "vabApp\WebAPI\vabApp.WebAPI.csproj", "{A76F69CC-7C1E-4511-B8D2-FAD2306E12BC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vabApp.Client", "vabApp\Client\vabApp.Client.csproj", "{94FBBC57-CC43-4F43-8201-2024AC605238}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "vabApp.Client", "vabApp\Client\vabApp.Client.csproj", "{94FBBC57-CC43-4F43-8201-2024AC605238}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vabApp.Shared", "vabApp\Shared\vabApp.Shared.csproj", "{0305328E-CB49-4E20-9C76-22B6DF28DC39}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "vabApp.Shared", "vabApp\Shared\vabApp.Shared.csproj", "{0305328E-CB49-4E20-9C76-22B6DF28DC39}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "vabApp.Server", "vabApp\Server\vabApp.Server.csproj", "{02D0228D-458A-4451-85BA-32C233A6EBC7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{0305328E-CB49-4E20-9C76-22B6DF28DC39}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0305328E-CB49-4E20-9C76-22B6DF28DC39}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0305328E-CB49-4E20-9C76-22B6DF28DC39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02D0228D-458A-4451-85BA-32C233A6EBC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02D0228D-458A-4451-85BA-32C233A6EBC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02D0228D-458A-4451-85BA-32C233A6EBC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02D0228D-458A-4451-85BA-32C233A6EBC7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

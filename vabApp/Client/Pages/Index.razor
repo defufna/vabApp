@@ -1,3 +1,90 @@
 ﻿@page "/"
+@using System.Text.Json;
+@using vabApp.Shared;
+@inject HttpClient Client;
 
-<h1>Hello, world!</h1>
+<h1>Contacts</h1>
+
+<a href="/add">Add Contact</a>
+
+@if(message != null)
+{
+<p style="color:red;">
+	@message
+</p>
+}
+
+@if(contacts == null || contacts.Length == 0)
+{
+	<p>No contacts found!</p>
+}
+else
+{
+	<table>
+		<thead>
+			<tr>
+				<th>First name</th>
+				<th>Last name</th>
+				<th>E-Mail</th>
+				<th>Phone</th>
+				<td></td>
+				<td></td>
+			</tr>
+		</thead>
+
+		@foreach (Contact contact in contacts)
+		{			
+			<tr>
+				<td>@contact.FirstName</td>
+				<td>@contact.LastName</td>
+				<td>@contact.Email</td>
+				<td>@contact.PhoneNumber</td>
+				<td><a href="/Edit/@contact.Id">Edit</a></td>
+				<td><a href="" @onclick="()=>Delete(contact.Id)" @onclick:preventDefault >Delete</a></td>
+			</tr>
+		}
+	</table>
+}
+
+@code{
+	private Contact[]? contacts = null;
+	private string? message = null;
+
+	JsonSerializerOptions options = new JsonSerializerOptions(JsonSerializerDefaults.Web)
+	{
+		Converters = { new LongToStringConverter() }
+	};
+
+	private async Task Delete(long id)
+	{
+		message = null;
+		try
+		{
+			var response = await Client.DeleteAsync($"/api/Contacts/Delete?id={id}");
+			response.EnsureSuccessStatusCode();
+			await LoadContacts();
+		}
+		catch(HttpRequestException)
+		{
+			message = "Failed to delete contact";
+		}
+	}
+
+	protected override async Task OnInitializedAsync()
+	{
+		await LoadContacts();
+	}
+
+	private async Task LoadContacts()
+	{
+		message = null;
+		try
+		{
+			contacts = await Client.GetFromJsonAsync<Contact[]>("api/Contacts/GetContacts", options);
+		}
+		catch (HttpRequestException)
+		{
+			message = "Error fetching contacts";
+		}
+	}
+}

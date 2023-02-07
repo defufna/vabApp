@@ -1,0 +1,103 @@
+﻿@page "/Edit/{Id}"
+@using System.Text.Json;
+@using vabApp.Shared;
+@using Microsoft.AspNetCore.Components.Forms
+@inject HttpClient Client;
+@inject NavigationManager NavManager
+
+<h1>Edit Contact</h1>
+
+@if (message != null)
+{
+	<p style="color:red;">
+		@message
+	</p>
+}
+else
+{
+	<EditForm Model="@contact" OnSubmit="@HandleSubmit">
+
+		<p>
+			<label>
+				First Name:
+				<InputText id="firstName" @bind-Value="contact.FirstName" />
+			</label>
+		</p>
+		<p>
+			<label>
+				Last Name:
+				<InputText id="lastName" @bind-Value="contact.LastName" />
+			</label>
+		</p>
+		<p>
+			<label>
+				E-Mail
+				<InputText id="email" @bind-Value="contact.Email" />
+			</label>
+		</p>
+		<p>
+			<label>
+				Phone Number:
+				<InputText id="phoneNumber" @bind-Value="contact.PhoneNumber" />
+			</label>
+		</p>
+		<button type="submit">Submit</button>
+
+	</EditForm>
+}
+
+@code {
+	private Contact contact = new();
+	private string? message = null;
+
+	[Parameter] public string? Id { get; set; }
+
+	JsonSerializerOptions options = new JsonSerializerOptions(JsonSerializerDefaults.Web)
+	{
+		Converters = { new LongToStringConverter() }
+	};
+
+	protected override async Task OnInitializedAsync()
+	{
+		if(Id == null || !long.TryParse(Id, out _))
+		{
+			message = "Invalid contact Id";
+			return;
+		}
+
+		Contact? newContact = null;
+		try
+		{
+			newContact = await Client.GetFromJsonAsync<Contact>($"/api/Contacts/GetContact?Id={Id}", options);
+		}
+		catch (HttpRequestException)
+		{
+			message = "Error fetching contact";
+		}
+
+		if (newContact != null)
+		{
+			contact = newContact;			
+		}
+		else
+		{
+			message = "Contact not found";	
+		}
+
+	}
+
+	private async Task HandleSubmit()
+	{
+		message = null;
+		try
+		{
+			var response = await Client.PostAsJsonAsync<Contact>("/api/Contacts/Update", contact, options);
+			response.EnsureSuccessStatusCode();
+
+			NavManager.NavigateTo("/");
+		}catch(HttpRequestException)
+		{
+			message = "Error updating contact";
+		}
+	}
+}

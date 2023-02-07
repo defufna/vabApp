@@ -1,0 +1,68 @@
+﻿@page "/Add"
+@using System.Text.Json;
+@using vabApp.Shared;
+@using Microsoft.AspNetCore.Components.Forms
+@inject HttpClient Client;
+@inject NavigationManager NavManager
+
+<h1>Add Contact</h1>
+
+@if (errorVisible)
+{
+	<p style="color:red;">
+		Error adding contact.
+	</p>
+}
+
+<EditForm Model="@contact" OnSubmit="@HandleSubmit">
+	<p>
+		<label>
+			First Name:
+			<InputText id="firstName" @bind-Value="contact.FirstName" />
+		</label>
+	</p>
+	<p>
+		<label>
+			Last Name:
+			<InputText id="lastName" @bind-Value="contact.LastName" />
+		</label>
+	</p>
+	<p>
+		<label>
+			E-Mail
+			<InputText id="email" @bind-Value="contact.Email" />
+		</label>
+	</p>
+	<p>
+		<label>
+			Phone Number:
+			<InputText id="phoneNumber" @bind-Value="contact.PhoneNumber" />
+		</label>
+	</p>
+	<button type="submit">Submit</button>
+</EditForm>
+
+@code {
+	private Contact contact = new();
+	private bool errorVisible = false;
+
+	JsonSerializerOptions options = new JsonSerializerOptions(JsonSerializerDefaults.Web)
+	{
+		Converters = { new LongToStringConverter() }
+	};
+
+	private async Task HandleSubmit()
+	{
+		errorVisible = false;
+		try
+		{
+			var response = await Client.PostAsJsonAsync<Contact>("/api/Contacts/Add", contact, options);
+			response.EnsureSuccessStatusCode();
+
+			NavManager.NavigateTo("/");
+		}catch(HttpRequestException)
+		{
+			errorVisible = true;
+		}
+	}
+}

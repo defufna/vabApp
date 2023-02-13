@@ -1,5 +1,3 @@
-# vabApp - VeloxDB + ASP.NET + Blazor WebAssembly example
-
 ## Introduction
 
 At long last, I get to unleash my greatest dream upon the world: my very own web stack. In a sea of LAMPs and MERNs and countless other acronyms, it's finally my turn to make my mark. 
@@ -17,13 +15,13 @@ VeloxDB is a new object-oriented database. Instead of using SQL, you use C# to c
 
 Finally, ASP.NET Core is Microsoft's solution for building web applications using .NET. Unlike Blazor WASM, ASP.NET Core operates on the server side. In our web app, we will use ASP.NET Core mainly to expose our VeloxDB operations to the client.
 
-## Getting started
+## Getting Ctarted
 
 To get started, you'll need Microsoft .NET 7 installed. You can use any IDE of your choice, whether it be Visual Studio, VSCode, or something else entirely. This tutorial will primarily utilize Visual Studio.
 
 With your environment prepared, it's time to start creating projects. The tutorial project can be found on [GitHub](https://github.com/defufna/vabApp/). Each step of the tutorial is committed as an individual commit within the repository, which serves as a handy reference in case you encounter any difficulties.
 
-## Creating projects
+## Creating Projects
 
 We will begin by creating a new Blazor WASM project. Fire up Visual Studio and navigate to the `New Project` dialog. From there, select the `Blazor WebAssembly Empty` template and click `Next`.
 
@@ -37,7 +35,8 @@ In the `Additional Information` section, make sure to check the ASP.NET Core Hos
 
 This will cause Visual Studio to generate both a Blazor WebAssembly project and an ASP.NET Core project, which will serve as the host for your Blazor app and API. If you neglect to check this box, you will only receive a Blazor WebAssembly project.
 
-If you're utilizing the dotnet console tool, you can easily create a solution with the following command: `dotnet new blazorwasm-empty --hosted -o vabApp.`
+If you're utilizing the dotnet console tool, you can easily create a solution with the following command: 
+`dotnet new blazorwasm-empty --hosted -o vabApp`
 
 Now you should have a solution containing the following projects:
 
@@ -54,6 +53,10 @@ Given that we're building a VeloxDB app, it's important to note that our archite
 Next, let's create another class library project and name it "Server". Once created, I recommend renaming it to "vabApp.Server" to maintain consistency with the other projects in the solution. This project will house our model and business logic.
 
 ![New class library](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/b19oi66ibxyrs9w9sngr.png)
+
+At this point, your solution should look similar to this:
+
+![Solution](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/712b38ipro3snd96c806.png)
 
 Before proceeding, open the properties for vabApp.Server and under `Build`, set the `Platform target` to `x64`.
 
@@ -83,7 +86,7 @@ To run the vabApp.Server project, follow these steps:
 
 This will start VeloxDB with an empty model.
 
-## Creating Model
+## Creating the Model
 
 For our demonstration, we will be constructing a straightforward contacts app. This will consist of a single class model with basic information about a contact.
 
@@ -410,7 +413,7 @@ Once the server starts and your browser opens, go to the "/Swagger" address. The
 
 Now that the database is running and the WebAPI is exposing its interface to the web, we can move on to the final step.
 
-## Writing the client
+## Writing the Client
 
 Finally, it's time to write the client. I don't want to get bogged down in too many details here – there are plenty of fantastic Blazor WebAssembly tutorials available. The primary goal of this article is to demonstrate how VeloxDB can be used in the creation of modern web apps. I opted for Blazor because I felt that its C#-based architecture is a great match for VeloxDB. But any web framework would do the trick.
 
@@ -695,7 +698,7 @@ And now, it's finally time to run the app. You're looking at a basic contacts we
 
 ![Final result](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/62m37117ffq0ktz09jqu.png)
 
-## What's next
+## What's Next
 
 VeloxDB is still in its beta phase but there's a ton of great things to come. We're talking SQL Select, Disk-based classes, Time-series classes, BTree index, Spatial index, and Full-text search. And as for the ASP.NET package, well, it's just a demo for now. But, I've got plans to add gRPC support, give you better control over controller generation, and throw in some ASP.NET features like authentication. If you want to stay in the loop, follow us on [GitHub](https://github.com/VeloxDB/VeloxDB) or [Twitter](https://twitter.com/VeloxDB).
 

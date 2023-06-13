@@ -15,7 +15,7 @@ VeloxDB is a new object-oriented database. Instead of using SQL, you use C# to c
 
 Finally, ASP.NET Core is Microsoft's solution for building web applications using .NET. Unlike Blazor WASM, ASP.NET Core operates on the server side. In our web app, we will use ASP.NET Core mainly to expose our VeloxDB operations to the client.
 
-## Getting Ctarted
+## Getting Started
 
 To get started, you'll need Microsoft .NET 7 installed. You can use any IDE of your choice, whether it be Visual Studio, VSCode, or something else entirely. This tutorial will primarily utilize Visual Studio.
 
